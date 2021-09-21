@@ -51,7 +51,19 @@ exports.postsignup = async(req,res,next)=>{
     }
 }
 
-exports.postUser = async(req,res,next)=>{
+// exports.postUser = async(req,res,next)=>{
+//     const phone = req.body.phone;
+//     try{
+
+//         const user = await User.findOne({phone:phone})
+
+//     }
+//     catch(err){
+//         throw err;
+//     }
+// }
+
+exports.postProfile = async(req,res,next)=>{
     const userId = req.params.userId;
     const file = req.files.file;
     try{

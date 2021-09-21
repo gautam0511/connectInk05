@@ -1,0 +1,38 @@
+.signup-col1{
+    display: grid;
+    grid-template-rows: 50% 50%;
+    justify-content: center;
+   gap: 20px;
+   border: 1px solid black;
+   width: 400px;
+   height: 400px;
+   margin: 20px 20px;
+   position: relative;
+   left: 400px;
+   top: 80px;
+}
+.signup-col1 img{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 99px;
+    margin-top: 90px;
+}
+.signup-form{
+    display: grid;
+    grid-template-rows: 30% 30% 20%;
+}
+#input-form{
+    outline: none;
+    width: 310px;
+    height: 40px;
+}
+#btn-form{
+    width: 170px;
+    position: relative;
+    left: 70px;
+    height: 40px;
+    background: crimson;
+    color: whitesmoke;
+    border: none;
+}

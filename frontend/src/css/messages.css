@@ -1,0 +1,45 @@
+.msg-form{
+    position: relative;
+    display: grid;
+    grid-template-rows: 50% 25%;
+    border: 3px solid black;
+    width: 500px;
+    height: 400px;
+left: 370px;
+top: 120px;
+background: #1c5c6c;
+}
+.msg-section{
+    width: 500px;
+    height: 500px;
+    position: relative;
+    left: 30px;
+}
+#msgs{
+    color: #00c2cb;
+}
+.msg-room{
+    position: relative;
+    top: 149px;
+    
+}
+.input-form{
+    width: 400px;
+    height: 50px;
+    border: none;
+    background: #b6dcdd
+    ;
+    outline: none;
+    margin: 0px;
+    padding:0px ;
+}
+.input-btn{
+    width: 99px;
+    height: 51px;
+    background: #2b343c
+
+    ;
+    color: whitesmoke;
+    border: none;
+ 
+}

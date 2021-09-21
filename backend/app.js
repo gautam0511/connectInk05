@@ -1,38 +1,45 @@
-const express=  require('express');
-const path = require('path')
-require('dotenv').config()
-const mongoose = require('mongoose');
-const app  = express()
-const server= require('http').createServer(app);
-const io = require('socket.io')(server,{cors:{origin:"*"}})
-const MONGO_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.wpffu.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`
-const cors  = require('cors');
-const fileUpload = require('express-fileupload');
-app.use(cors())
-app.use(express.static(path.join(__dirname, 'public')));
-const bodyParser=  require('body-parser');
-app.use(bodyParser.json())
-const userRoutes = require('./routes/user');
-app.use(fileUpload());
-app.use('/user',userRoutes)
 
 
-io.on('connection',(socket)=>{
-    console.log(socket);
-    socket.on('message',(payload)=>{
-        console.log("payload",payload);
-        socket.emit('message',payload);
-    })
+const app  = require('express')()
+const httpServer = require('http').createServer(app);
+
+const io = require('socket.io')(httpServer,{
+    cors:{
+        Origin:"*"
+    }
+})
+const PORT =3007
+const users = {}
+
+io.on("connection",(socket)=>{
+console.log(socket.id);
+
+socket.on('disconnect',()=>{
+    console.log('disconnected')
+    for(let user in users){
+        if(users[user]===socket.id){
+            delete users[user]
+        }
+    }
+    io.emit('all_users',users)
+})
+socket.on('new_user',(username)=>{
+    console.log('server:'+username);
+    users[username] =socket.id;
+
+    io.emit('all_users',users)
+})
+socket.on('send_message',(data)=>{
+    console.log(data);
+
+    const socketId = users[data.receiver];
+    console.log(socketId)
+    io.to(socketId).emit('new_message',data)
+})
+
 })
 
 
-
-mongoose
-.connect(MONGO_URI).then(result=>{
-    server.listen(process.env.PORT,()=>{
-       console.log(`Server running on-${process.env.PORT}`)
-    })
+httpServer.listen(PORT,()=>{
+    console.log('server started')
 })
-
-
-
